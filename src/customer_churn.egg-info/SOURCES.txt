@@ -1,8 +1,0 @@
-README.md
-setup.py
-src/customer_churn.egg-info/PKG-INFO
-src/customer_churn.egg-info/SOURCES.txt
-src/customer_churn.egg-info/dependency_links.txt
-src/customer_churn.egg-info/top_level.txt
-src/data/__init__.py
-src/features/__init__.py

@@ -3,4 +3,4 @@ __pycache__/
 .env
 data/
 env/
-src/cutomer_churn.egg-info/
+src/customer_churn.egg-info/
