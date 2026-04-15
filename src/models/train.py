@@ -17,7 +17,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.impute import SimpleImputer
 
-# models
+# models 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -75,7 +75,6 @@ def main():
         "Random Forest": RandomForestClassifier(),
         "Logistic Regression": LogisticRegression()
     }
-    print(models.items())
 
     # train models
     results = []
