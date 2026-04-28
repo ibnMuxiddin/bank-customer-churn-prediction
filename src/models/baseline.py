@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split
 # Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline as ImbPipeline
+from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer, make_column_selector
 
 # encode
@@ -48,13 +49,25 @@ def main():
     # Log Transformation
     log_transformer = FunctionTransformer(np.log1p)
 
+    # log_pipeline
+    log_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("log", log_transformer),
+        ("scaler", StandardScaler())
+    ])
+
+    # num pipeline
+    num_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler())
+    ])
+
     # Transform
     col_trans = ColumnTransformer(
         transformers=[
-            ("log", log_transformer, ["Age"]),
-            ("scale", StandardScaler(), ["Age", "CreditScore", "Balance", "EstimatedSalary"]),
-            ("encode", OneHotEncoder(handle_unknown="ignore", sparse_output=False), make_column_selector(dtype_include=["object", "category"])),
-            ("impute", SimpleImputer(strategy='median'), make_column_selector(dtype_exclude=["object", "category"]))
+            ("log_col", log_pipeline, ["Age"]),
+            ("num", num_pipeline, ["Age", "CreditScore", "Balance", "EstimatedSalary"]),
+            ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), make_column_selector(dtype_include=["object", "category"]))
         ],
         remainder="passthrough"
     )
