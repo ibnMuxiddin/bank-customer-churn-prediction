@@ -77,22 +77,7 @@ def main():
         ]
     )
 
-    # Logistic Regression param grid
-    param_grid = [
-        {
-            "model__penalty": ["l2"],
-            "model__C": [0.01, 0.1, 1, 10],
-            "model__solver": ["lbfgs"],
-            "model__max_iter": [3000]
-        },
-        {
-            "model__penalty": ["l1", "l2"],
-            "model__C": [0.01, 0.1, 1, 10],
-            "model__solver": ["saga"],
-            "model__max_iter": [3000]
-        }
-        ]
-    
+    # param grid list
     param_grid_svm = [
     {
         "model__kernel": ["linear"],

@@ -106,7 +106,7 @@ def main():
         y_pre = train_model.predict(X_test)
         end_pr = time.time()
 
-        y_probs = train_model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else y_pre
+        y_probs = train_model.predict_proba(X_test)[:, 1] if hasattr(train_model, "predict_proba") else y_pre
         train_time = end_tr-start_tr
         predict_time = end_pr - start_pr 
 
