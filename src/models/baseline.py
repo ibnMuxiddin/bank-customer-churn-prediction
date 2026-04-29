@@ -66,7 +66,7 @@ def main():
     col_trans = ColumnTransformer(
         transformers=[
             ("log_col", log_pipeline, ["Age"]),
-            ("num", num_pipeline, ["Age", "CreditScore", "Balance", "EstimatedSalary"]),
+            ("num", num_pipeline, ["CreditScore", "Balance", "EstimatedSalary"]),
             ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), make_column_selector(dtype_include=["object", "category"]))
         ],
         remainder="passthrough"

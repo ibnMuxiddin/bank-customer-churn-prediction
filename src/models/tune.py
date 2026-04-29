@@ -23,6 +23,9 @@ from sklearn.impute import SimpleImputer
 # model
 from sklearn.svm import SVC
 
+# save model
+import joblib
+
 def main():
 
     # loading data
@@ -58,7 +61,7 @@ def main():
     preprocesser = ColumnTransformer(
         transformers=[
             ("log_col", log_pipeline, ["Age"]),
-            ("num", num_pipeline, ["Age", "CreditScore", "Balance", "EstimatedSalary"]),
+            ("num", num_pipeline, ["CreditScore", "Balance", "EstimatedSalary"]),
             ("cat", OneHotEncoder(handle_unknown="ignore"), make_column_selector(dtype_include=["object", "category"])),
         ],
         remainder="passthrough"
@@ -70,7 +73,7 @@ def main():
             ("add_attr", FeatureGenerator()),
             ("preprocess", preprocesser),
             ("smote", SMOTE(random_state=42)),
-            ("model", SVC())
+            ("model", SVC(probability=True))
         ]
     )
 
@@ -120,8 +123,15 @@ def main():
     # train model
     grid_searchcv.fit(X_train, y_train)
 
-    print(f"Eng yaxshi parametrlar: {grid_searchcv.best_params_}")
-    print(f"Eng yaxshi Recall: {grid_searchcv.best_score_}")
+    # Save model
+    import os
+    save_dir = "../../models"
+    os.makedirs(save_dir, exist_ok=True) # Papka borligiga ishonch hosil qilamiz
+    
+    # "smv" -> "svm" ga to'g'irlandi
+    joblib.dump(grid_searchcv.best_estimator_, f"{save_dir}/best_svm_pipeline.pkl")
+    print(f"Model saqlandi. Eng yaxshi parametrlar: {grid_searchcv.best_params_}")
+
 
 if __name__ == "__main__":
     main()
