@@ -1,6 +1,5 @@
 __pycache__/
 .ipynb_checkpoints/
 .env
-data/
 env/
 src/customer_churn.egg-info/
